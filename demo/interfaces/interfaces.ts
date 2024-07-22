@@ -11,3 +11,122 @@ import { strict as assert } from "assert";
 //
 // Useful links:
 // https://www.typescriptlang.org/docs/handbook/2/objects.html
+
+interface Area {
+  area(): number;
+}
+
+interface Perimeter {
+  perimeter(): number;
+}
+
+class Rectangle implements Area, Perimeter {
+  length: number = 1;
+  width: number = 1;
+
+  area(): number {
+    return this.length * this.width;
+  }
+
+  perimeter(): number {
+    return 2 * (this.length + this.width);
+  }
+}
+
+type AreaAndPerimeter = Area & Perimeter;
+
+class Circle implements AreaAndPerimeter {
+  radius: number = 4;
+
+  area(): number {
+    return Math.PI * this.radius ** 2;
+  }
+
+  perimeter(): number {
+    return 2 * Math.PI * this.radius;
+  }
+}
+
+const rect = new Rectangle();
+const circ = new Circle();
+
+const objectsWithArea: Area[] = [rect, circ];
+
+for (let i = 0; i < objectsWithArea.length; i++) {
+  console.log(objectsWithArea[i].area());
+}
+
+interface CustomerInfo {
+  name: string;
+}
+
+class Customer implements CustomerInfo {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+
+interface Address {
+  street: string;
+  city: string;
+}
+
+function printAddr(address: Address) {
+  console.log(`Streename: ${address.street},\nCity: ${address.city}`);
+}
+
+const addr = {
+  street: "name",
+  city: "sample",
+};
+
+printAddr(addr);
+
+//// Small Group Idea
+// - Defer to using interfaces instead of type aliases when using objects
+interface Person {
+  firstName: string;
+  lastName: string;
+  address: string;
+  dob: string;
+}
+
+class Adult implements Person {
+  firstName: string;
+  lastName: string;
+  address: string;
+  dob: string;
+
+  constructor(
+    firstName: string,
+    lastName: string,
+    address: string,
+    dob: string
+  ) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.address = address;
+    this.dob = dob;
+  }
+}
+
+class Child implements Person {
+  firstName: string;
+  lastName: string;
+  address: string;
+  dob: string;
+
+  constructor(
+    firstName: string,
+    lastName: string,
+    address: string,
+    dob: string
+  ) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.address = address;
+    this.dob = dob;
+  }
+}
